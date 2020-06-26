@@ -1,0 +1,67 @@
+<div class="row animated fadeIn" >
+    <div class="col-md-8">
+        <div class="card card-body">
+            <h3 class="box-title m-b-0">Formulario de registro de Notificaciones</h3>
+            <p class="text-muted m-b-30 font-13"> Registrar notificación web</p>
+            <div class="row">
+                <div class="col-sm-12 col-xs-12">
+                    <form #f="ngForm" ngNativeValidate  (ngSubmit)="saveNotification(f)" >
+                        <div class="form-group">
+                            <label>Titulo</label>
+                            <input [(ngModel)]="notification.title" name="title"  type="text" class="form-control"  placeholder="Titulo de la notificación" requiired>
+                        </div>
+                        <div class="form-group">
+                            <label>Descripción</label>
+                            <textarea [(ngModel)]="notification.description" name="description" class="form-control" rows="5" placeholder="Descripcion de la notificación"></textarea>
+                        </div>
+           
+                        <div class="form-group">
+                            <label>Tipo</label>
+                            <select [(ngModel)]="notification.type" name="type" class="form-control" required>
+                                <option value="0" >Seleccionar un tipo</option>
+                                <option *ngFor="let type of types" [value]="type.value" > 
+                                    {{type.viewValue}}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <div class="row" >
+                                <div class="col-sm" style="margin: 10px;">
+                                    <mat-checkbox [(ngModel)]="notification.active" name="active">Activo</mat-checkbox>
+                                </div>
+                                <div class="col-sm" >
+                                    <mat-form-field>
+                                        <mat-label>Seleccione una fecha</mat-label>
+                                        <input [(ngModel)]="notification.date" name="date" matInput [matDatepicker]="picker">
+                                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                        <mat-datepicker #picker></mat-datepicker>
+                                      </mat-form-field>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary waves-effect waves-light m-r-10">
+                            <i class="fa fa-save" ></i>
+                            Guardar
+                        </button>
+                        <button routerLink="/notifications" class="btn btn-inverse waves-effect waves-light">Cancelar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4" *ngIf="notification._id"  >
+        <div class="card card-body">
+            <h4 class="box-title m-b-10" >Imagen Publicada</h4>
+            <img (click)="changePhoto()" [src]="notification.image | image: 'notification'" class="img img-fluid pointer">
+        </div>
+
+        <div class="card card-body" >
+            <h4 class="box-title m-b-20" >Archivo publicado</h4>
+            <img (click)="changeFile()" [src]="iconFile" width="100px" alt="Subir imagen" style="margin: 0 auto;" />
+            
+        </div>
+    </div>
+
+    
+</div>

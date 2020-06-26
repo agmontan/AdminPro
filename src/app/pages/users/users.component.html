@@ -1,0 +1,92 @@
+<div class="row animated fadeIn">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <input #input (keyup)="searchUser(input.value)" type="text" class="form-control" placeholder="Buscar Usuario ..." >
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row animated fadeIn"  *ngIf="loading" >
+    <div class="col-sm-12" >
+        <div class="alert alert-warning text-center" >
+            <strong>Cargando</strong>
+            <br>
+            <i class="fa fa-refresh fa-spin fa-2x" ></i>
+            <br>
+            <span>Espere por favor</span>
+    
+    
+        </div> 
+
+    </div>
+    
+</div>
+
+<div class="row animated fadeIn" *ngIf="!loading">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                
+                
+                <table class="table table-striped table-hover contact-list footable-loaded footable color-table inverse-table" >
+                    <thead>
+                        <tr>
+                            <th>Imagen</th>
+                            <th>Email</th>
+                            <th>Nombre</th>
+                            <th>Rol</th>
+                            
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let user of users" >
+                            <td class="w70" >
+                                <img (click)="showModal( user._id )" [src]="user.image | image" alt="" class="img-50 img-circle pointer">
+                            </td>
+                            <td>{{user.email}}</td>
+                            <td>{{user.name}}</td>
+                            <td>
+                                <select [(ngModel)]="user.role" name="role" class="form-control" >
+                                    <option value="ADMIN_ROLE" >ADMIN_ROLE</option>
+                                    <option value="USER_ROLE" >USER_ROLE</option>
+                                </select>
+                                  
+                            </td>
+                            
+                            
+                            <td>
+                                <button (click)="saveUser( user )"  class="btn btn-primary m-r-10" >
+                                    <i class="fa fa-save" ></i>
+                                </button>
+
+                                <button (click)="deleteUser(user)" class="btn btn-danger" >
+                                    <i class="fa fa-trash-o" ></i>
+                                </button>
+
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="4" ><strong>Registros </strong>  {{total}} </td>
+                            <td colspan="1" class="text-center" >
+                                <button (click)="changePagination(-5)" class="btn btn-xs btn-secondary m-r-10" >
+                                    <i class="fa fa-chevron-left" ></i>
+                                </button>
+            
+                                <button (click)="changePagination(5)" class="btn btn-xs btn-secondary" >
+                                    <i class="fa fa-chevron-right" ></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tfoot>
+
+                </table>
+                 
+            </div>
+        </div>
+    </div>
+</div>
